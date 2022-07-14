@@ -4,7 +4,7 @@ const d = document,
     $crear = d.getElementById("crear"),
     body = d.querySelector('.tbody1'),
     $input = d.getElementById('inputTarea').value
-const url = 'http://localhost:8080';
+const url = "http://localhost:8080";
 let resultado = ''
 let resultadoSub = ''
 let subtarea = {};
@@ -29,7 +29,8 @@ async function crearList(lista) {
                 name: lista
             })
         },
-            res = await fetch(`${url}/task`, options)
+            res = await fetch(`${url}/task`, options),
+            json = await res.json();
         mostrarList();
     } else {
         alert("ingrese una tarea por favor!")
@@ -114,6 +115,7 @@ body.addEventListener("click", (e) => {
             id: e.path[0].value
         }
         crearSubLista(dato)
+        mostrarList()
 
     }
 
@@ -122,12 +124,14 @@ body.addEventListener("click", (e) => {
     if (e.target.classList[0] == "actualizarSubList") {
         let subTaskPath = e.path[1].children[1].value;
       actualizarSubList(subtarea.idpadre, subtarea.id, subTaskPath)
+      mostrarList()
     }
     /**
      * eliminar subtarea
     */
     if (e.target.classList[0] == "eliminar") {
         eliminarSubTarea(e.target.parentElement.parentElement.children[0].textContent)
+        mostrarList()
     }
     /**
      * editar subtarea , al pulsar el boton editar , muestra en el input con nombre de la tare actual
@@ -185,7 +189,7 @@ async function crearSubLista({ nombre, id }) {
         let options = {
             method: "POST",
             headers: {
-                "Content-type": "application/json; charset=utf-8"
+                "Content-type": "application/json; charset=utf-8",
             },
             body: JSON.stringify({
                 completed: false,
@@ -208,7 +212,7 @@ async function eliminarSubTarea(id) {
     let options = {
         method: "DELETE",
         headers:{
-            "Content-type":"Application/json"
+            "Content-type": "application/json; charset=utf-8",
 
         },
         body: JSON.stringify({

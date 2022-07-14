@@ -13,14 +13,13 @@ public class ListService {
     private ListRepository listRepository;
 
     public Iterable<ListModel> list(){
-
         return listRepository.findAll();
     }
 
     /**
      * metodo crear lista
-     * @param lista
-     * @return
+     //@param lista
+     // @return
      */
     public ListModel createList(ListModel lista){
 
@@ -29,7 +28,7 @@ public class ListService {
 
     /**
      * metodo eliminar lista
-     * @param id
+     //@param id
      */
     public void deleteTask(Long id){
 
@@ -38,11 +37,10 @@ public class ListService {
 
     /**
      * verificar si el id esta entonces lo retorne , si no retorne error
-     * @param id
-     * @return
+     // @param id
+     //@return
      */
     public ListModel get(Long id){
-
         return listRepository.findById(id).orElseThrow();
     }
 }

@@ -14,9 +14,9 @@ public class ListTaskModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(unique = true, nullable = false)
     private Long id;
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private Boolean completed;
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false)
     private String name;
 
     /**
@@ -27,16 +27,6 @@ public class ListTaskModel {
 
     @JsonBackReference
     private ListModel listaid;
-
-    /*public ListTaskModel() {
-    }
-
-    public ListTaskModel(Long id, Boolean completed, String name, ListModel listaid) {
-        this.id = id;
-        this.completed = completed;
-        this.name = name;
-        this.listaid = listaid;
-    }
 
     public Long getId() {
         return id;
@@ -69,6 +59,4 @@ public class ListTaskModel {
     public void setListaid(ListModel listaid) {
         this.listaid = listaid;
     }
-}
-*/
 }
