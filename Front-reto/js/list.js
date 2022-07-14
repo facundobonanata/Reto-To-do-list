@@ -116,14 +116,13 @@ body.addEventListener("click", (e) => {
         crearSubLista(dato)
 
     }
+
+    //Editar sub tarea
+
     if (e.target.classList[0] == "actualizarSubList") {
-        //console.log(e.path[1].children[1].value)
-
-        let = era = e.path[1].children[1].value;
-        actualizarSubList(subtarea.idpadre, subtarea.id, era)
+        let subTaskPath = e.path[1].children[1].value;
+      actualizarSubList(subtarea.idpadre, subtarea.id, subTaskPath)
     }
-
-
     /**
      * eliminar subtarea
     */
