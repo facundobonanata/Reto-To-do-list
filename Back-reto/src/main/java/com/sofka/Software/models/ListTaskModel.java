@@ -28,7 +28,7 @@ public class ListTaskModel {
     @JsonBackReference
     private ListModel listaid;
 
-    public ListTaskModel() {
+    /*public ListTaskModel() {
     }
 
     public ListTaskModel(Long id, Boolean completed, String name, ListModel listaid) {
@@ -69,4 +69,6 @@ public class ListTaskModel {
     public void setListaid(ListModel listaid) {
         this.listaid = listaid;
     }
+}
+*/
 }

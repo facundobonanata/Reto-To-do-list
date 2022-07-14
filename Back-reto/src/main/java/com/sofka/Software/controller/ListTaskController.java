@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
-@CrossOrigin(origins ="http://127.0.0.1:5501")
+@CrossOrigin
 @RestController
 public class ListTaskController {
     @Autowired
@@ -26,7 +26,8 @@ public class ListTaskController {
 
     @PutMapping(path = "/listTask/{id}")
     public ListTaskModel updatelistTask(@RequestBody ListTaskModel listTask, @PathVariable(value="id") Long id ) {
-        return listTaskService.updateListTask(id, listTask);
+         listTaskService.updateListTask(id, listTask);
+         return null;
     }
     /**
      *

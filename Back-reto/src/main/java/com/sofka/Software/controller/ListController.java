@@ -8,27 +8,27 @@ import org.springframework.web.bind.annotation.*;
 
 
 @Slf4j
-@CrossOrigin(origins ="http://127.0.0.1:5501")
+@CrossOrigin(origins = "http://127.0.0.1:5501/")
 @RestController
 public class ListController {
         @Autowired
-        private ListService listService;
+        private ListService listRepository;
 
         @GetMapping(value = "/listas")
         public Iterable<ListModel> list(){
 
-            return listService.list();
+            return listRepository.list();
         }
 
         @PostMapping(value = "/task")
         public ListModel createList(@RequestBody ListModel lista){
 
-            return listService.createList(lista);
+            return listRepository.createList(lista);
         }
 
          @DeleteMapping(value = "/task/{id}")
          public void deleteTask(@PathVariable("id")Long id){
 
-             listService.deleteTask(id);
+             listRepository.deleteTask(id);
          }
 }

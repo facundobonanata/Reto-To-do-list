@@ -29,10 +29,10 @@ public class ListModel {
      * referencia la llave foranea de la clase lista tarea modelo
      */
     @JsonBackReference
-    private List<ListTaskModel>ListTask = new ArrayList<>();
+    private List<ListTaskModel> ListTask = new ArrayList<>();
 
 
-    public ListModel() {
+    /*public ListModel() {
     }
 
     public ListModel(Long id, String name, List<ListTaskModel> listTask) {
@@ -67,4 +67,5 @@ public class ListModel {
     public void setListTask(List<ListTaskModel> listTask) {
         ListTask = listTask;
     }
+}*/
 }

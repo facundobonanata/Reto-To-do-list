@@ -22,7 +22,7 @@ async function crearList(lista) {
         let options = {
             method: "POST",
             headers:{
-                "Content-type":"Application/json"
+                "Content-type":"Application/json; charset=utf-8"
             },
             
             body: JSON.stringify({
@@ -97,10 +97,15 @@ const mostrar = (listas) => {
 
 
 body.addEventListener("click", (e) => {
+   
     console.log(e.target.parentElement.parentElement.id);
+    
+    
     if (e.target.classList[0] == "EliminarTarea") {
         eliminarTarea(e.target.parentElement.parentElement.id)
     }
+
+
     if (e.target.classList[0] == "agregarSubList") {
 
         //console.log(e.path[0].value);
@@ -111,7 +116,14 @@ body.addEventListener("click", (e) => {
         crearSubLista(dato)
 
     }
-    
+    if (e.target.classList[0] == "actualizarSubList") {
+        //console.log(e.path[1].children[1].value)
+
+        let = era = e.path[1].children[1].value;
+        actualizarSubList(subtarea.idpadre, subtarea.id, era)
+    }
+
+
     /**
      * eliminar subtarea
     */
@@ -190,6 +202,8 @@ async function crearSubLista({ nombre, id }) {
         alert("Ingrese una subLista porfavor!")
     }
 }
+
+
 //eliminar subTarea
 async function eliminarSubTarea(id) {
     let options = {
@@ -214,7 +228,25 @@ async function eliminarSubTarea(id) {
  * @param {*} nombre 
  */
 
-
+//Update
+async function actualizarSubList(id1, id2, nombre){
+    let options = {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json; charset=utf-8",
+        },
+        body: JSON.stringify({
+            completed: false,
+            name: nombre,
+            listaid: {
+                id: id1
+                
+        }}),
+      },
+    
+      res = await fetch(`${url}/listTask/${id2}`, options)
+      mostrarList()
+}
 
 
 
