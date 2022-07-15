@@ -36,9 +36,6 @@ public class ListTaskModel {
         this.id = id;
     }
 
-    public Boolean getCompleted() {
-        return completed;
-    }
 
     public void setCompleted(Boolean completed) {
         this.completed = completed;
