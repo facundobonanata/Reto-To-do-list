@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
 
 @Service
 public class ListTaskService {
@@ -41,7 +40,6 @@ public class ListTaskService {
      * @return
      */
     public ListTaskModel get(Long id){
-
         return listTaskRepository.findById(id).orElseThrow();
     }
 
@@ -53,8 +51,7 @@ public class ListTaskService {
      */
     @Transactional
     public ListTaskModel updateListTask(Long id, ListTaskModel listTask) {
-        listTask.setId(id);
-        listTaskRepository.save(listTask);
-        return listTask;
+        listTask.setId(get(id).getId());
+        return listTaskRepository.save(listTask);
     }
 }

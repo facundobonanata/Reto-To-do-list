@@ -11,22 +11,21 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = {"http://localhost:5501", "http://127.0.0.1:5501/"})
 @RestController
 public class ListController {
-        @Autowired
-        private ListService listService;
+    @Autowired
+    private ListService listService;
 
-        @GetMapping(value = "/listas")
-        public Iterable<ListModel> list(){
-            return listService.list();
-        }
+    @GetMapping(value = "/listas")
+    public Iterable<ListModel> list() {
+        return listService.list();
+    }
 
-        @PostMapping(value = "/task")
-        public ListModel createList(@RequestBody ListModel lista){
+    @PostMapping(value = "/task")
+    public ListModel createList(@RequestBody ListModel lista) {
+        return listService.createList(lista);
+    }
 
-            return listService.createList(lista);
-        }
-
-         @DeleteMapping(value = "/task/{id}")
-         public void deleteTask(@PathVariable("id")Long id){
-             listService.deleteTask(id);
-         }
+    @DeleteMapping(value = "/task/{id}")
+    public void deleteTask(@PathVariable("id") Long id) {
+        listService.deleteTask(id);
+    }
 }

@@ -10,40 +10,126 @@ let resultadoSub = ''
 let subtarea = {};
 
 
-//funcon boton crear , permite guardar en el input el nombre de la nueva lista a crear
-$crear.addEventListener('click', e => {
-    e.preventDefault();
-    crearList(d.getElementById('inputTarea').value)
 
-})
+
 //Funcion crear lista , consulta la ruta del fetch y realiza el metodo post con los datos 
 async function crearList(lista) {
     if (lista) {
         let options = {
             method: "POST",
             headers:{
-                "Content-type":"Application/json; charset=utf-8"
+                "Content-type":"application/json; charset=utf-8",
             },
             
             body: JSON.stringify({
                 name: lista
             })
         },
-            res = await fetch(`${url}/task`, options),
-            json = await res.json();
-        mostrarList();
-    } else {
-        alert("ingrese una tarea por favor!")
+            res = await fetch(`${url}/task`, options)
+            mostrarList();
+        } else {
+            alert("ingrese una tarea por favor!")
+        }
     }
+
+    //Crear SubTarea
+async function crearSubLista({ nombre, id }) {
+    if (nombre) {
+        let options = {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json; charset=utf-8",
+            },
+            body: JSON.stringify({
+                completed: false,
+                name: nombre,
+                listaid: {
+                    id: id
+                }
+            })
+        },
+            res = await fetch(`${url}/listTask`, options)
+
+            mostrarList();
+        } else {
+            alert("Ingrese una subLista porfavor!");
+          }
+    } 
+
+    //funcion eliminar , recibe como parametro el ID
+async function eliminarTarea(id) {
+    console.log(id);
+    let options = {
+        method: "DELETE",
+        headers: {
+            "Content-type": "application/json; charset=utf-8"
+        },
+    },
+        res = await fetch(`${url}/task/${id}`, options)
+        mostrarList();
+
 }
+
+//eliminar subTarea
+async function eliminarSubTarea(id) {
+    let options = {
+        method: "DELETE",
+        headers:{
+            "Content-type": "application/json; charset=utf-8",
+
+        },
+        body: JSON.stringify({
+            listaid:{
+                id:id
+            },
+        }),
+    },
+    res = await fetch(`${url}/listTask/${id}`, options)
+    mostrarList();
+
+}
+/**
+ * Editar sub lista 
+ * @param {*} id1 
+ * @param {*} id2 
+ * @param {*} nombre 
+ */
+
+//Update
+async function actualizarSubList(id1, id2, nombre){
+    let options = {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json; charset=utf-8",
+        },
+        body: JSON.stringify({
+            completed: false,
+            name: nombre,
+            listaid: {
+                id: id1
+                
+        },
+    }),
+},
+      res = await fetch(`${url}/listTask/${id2}`, options)
+      mostrarList();
+
+}
+
+//funcon boton crear , permite guardar en el input el nombre de la nueva lista a crear
+$crear.addEventListener('click', e => {
+    e.preventDefault();
+     crearList(d.getElementById('inputTarea').value)
+     mostrarList();
+})
+
 
 //muestra las listas en la BD
 async function mostrarList() {
     let res = await fetch(`${url}/listas`)
     let data = await res.json()
         .catch(error => console.log(error))
-    mostrar(data)
-    
+    mostrar(data)   
 }
 mostrarList()
 
@@ -98,41 +184,38 @@ const mostrar = (listas) => {
 
 
 body.addEventListener("click", (e) => {
-   
-    console.log(e.target.parentElement.parentElement.id);
-    
+    //console.log(e.target.parentElement.parentElement.id);
     
     if (e.target.classList[0] == "EliminarTarea") {
         eliminarTarea(e.target.parentElement.parentElement.id)
-    }
-
+        mostrarList();
+ }
 
     if (e.target.classList[0] == "agregarSubList") {
-
         //console.log(e.path[0].value);
         let dato = {
             nombre: e.target.previousElementSibling.value,
             id: e.path[0].value
         }
-        crearSubLista(dato)
-        mostrarList()
-
+         crearSubLista(dato)
+         mostrarList()
+    }
+ /**
+     * eliminar subtarea
+    */
+    if (e.target.classList[0] == "eliminar") {
+         eliminarSubTarea(e.target.parentElement.parentElement.children[0].textContent)
+         mostrarList();
     }
 
     //Editar sub tarea
 
     if (e.target.classList[0] == "actualizarSubList") {
         let subTaskPath = e.path[1].children[1].value;
-      actualizarSubList(subtarea.idpadre, subtarea.id, subTaskPath)
-      mostrarList()
+       actualizarSubList(subtarea.idpadre, subtarea.id, subTaskPath)
+       mostrarList()
     }
-    /**
-     * eliminar subtarea
-    */
-    if (e.target.classList[0] == "eliminar") {
-        eliminarSubTarea(e.target.parentElement.parentElement.children[0].textContent)
-        mostrarList()
-    }
+   
     /**
      * editar subtarea , al pulsar el boton editar , muestra en el input con nombre de la tare actual
      * me permite 
@@ -170,86 +253,13 @@ body.addEventListener("click", (e) => {
 
 })
 
-//funcion eliminar , recibe como parametro el ID
-async function eliminarTarea(id) {
-    console.log(id);
-    let options = {
-        method: "DELETE",
-        headers: {
-            "Content-type": "application/json; charset=utf-8"
-        },
-    },
-        res = await fetch(`${url}/task/${id}`, options)
-
-    mostrarList()
-}
-//Crear SubTarea
-async function crearSubLista({ nombre, id }) {
-    if (nombre) {
-        let options = {
-            method: "POST",
-            headers: {
-                "Content-type": "application/json; charset=utf-8",
-            },
-            body: JSON.stringify({
-                completed: false,
-                name: nombre,
-                listaid: {
-                    id: id
-                }
-            })
-        },
-            res = await fetch(`${url}/listTask`, options)
-        mostrarList()
-    } else {
-        alert("Ingrese una subLista porfavor!")
-    }
-}
 
 
-//eliminar subTarea
-async function eliminarSubTarea(id) {
-    let options = {
-        method: "DELETE",
-        headers:{
-            "Content-type": "application/json; charset=utf-8",
 
-        },
-        body: JSON.stringify({
-            listaid:{
-                id:id
-            }
-        })
-    },
-    res = await fetch(`${url}/listTask/${id}`, options)
-    mostrarList()
-}
-/**
- * Editar sub lista 
- * @param {*} id1 
- * @param {*} id2 
- * @param {*} nombre 
- */
 
-//Update
-async function actualizarSubList(id1, id2, nombre){
-    let options = {
-        method: "PUT",
-        headers: {
-          "Content-type": "application/json; charset=utf-8",
-        },
-        body: JSON.stringify({
-            completed: false,
-            name: nombre,
-            listaid: {
-                id: id1
-                
-        }}),
-      },
-    
-      res = await fetch(`${url}/listTask/${id2}`, options)
-      mostrarList()
-}
+
+
+
 
 
 

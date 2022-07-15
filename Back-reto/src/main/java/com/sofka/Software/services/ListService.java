@@ -13,6 +13,7 @@ public class ListService {
     private ListRepository listRepository;
 
     public Iterable<ListModel> list(){
+
         return listRepository.findAll();
     }
 
@@ -41,6 +42,7 @@ public class ListService {
      //@return
      */
     public ListModel get(Long id){
+
         return listRepository.findById(id).orElseThrow();
     }
 }
