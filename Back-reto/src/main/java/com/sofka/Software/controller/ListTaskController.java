@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
-@CrossOrigin(origins = {"http://localhost:5501/", "http://127.0.0.1:5501/"})
+@CrossOrigin(origins = {"http://localhost:5501", "http://127.0.0.1:5501/"})
 @RestController
 public class ListTaskController {
     @Autowired
