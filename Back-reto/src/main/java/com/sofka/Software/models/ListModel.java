@@ -31,6 +31,15 @@ public class ListModel {
     @JsonBackReference
     private List<ListTaskModel> ListTask = new ArrayList<>();
 
+    public ListModel(){
+
+}
+    public ListModel(Long id, String name, List<ListTaskModel> listTask) {
+        this.id = id;
+        this.name = name;
+        ListTask = listTask;
+    }
+
     public Long getId() {
         return id;
     }
