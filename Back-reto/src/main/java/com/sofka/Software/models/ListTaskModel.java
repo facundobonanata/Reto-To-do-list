@@ -28,6 +28,10 @@ public class ListTaskModel {
     @JsonBackReference
     private ListModel listaid;
 
+   public ListTaskModel(){
+
+    }
+
     public Long getId() {
         return id;
     }
@@ -36,6 +40,9 @@ public class ListTaskModel {
         this.id = id;
     }
 
+    public Boolean getCompleted() {
+        return completed;
+    }
 
     public void setCompleted(Boolean completed) {
         this.completed = completed;
@@ -57,3 +64,5 @@ public class ListTaskModel {
         this.listaid = listaid;
     }
 }
+
+
